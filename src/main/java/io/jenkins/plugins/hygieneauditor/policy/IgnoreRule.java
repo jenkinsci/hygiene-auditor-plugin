@@ -184,8 +184,13 @@ public class IgnoreRule extends AbstractDescribableImpl<IgnoreRule> {
             return "Hygiene Auditor exemption";
         }
 
-        /** The categories a rule can be limited to; the empty entry matches every category. */
+        /**
+         * The categories a rule can be limited to; the empty entry matches every category.
+         * The list is fixed (an enum), reveals nothing private and changes no state, so it needs
+         * neither a permission check nor POST.
+         */
         @NonNull
+        @SuppressWarnings({"lgtm[jenkins/no-permission-check]", "lgtm[jenkins/csrf]"})
         public hudson.util.ListBoxModel doFillCategoryItems() {
             hudson.util.ListBoxModel items = new hudson.util.ListBoxModel();
             items.add(io.jenkins.plugins.hygieneauditor.Messages.IgnoreRule_AnyCategory(), "");
